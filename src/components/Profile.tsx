@@ -5,7 +5,7 @@ export function Profile() {
         <div className={styles.profileContainer}>
             <img src="https://github.com/marcosvgmartins.png" alt="Marcos Martins" />
             <div>
-                <strong>Diego Fernandes</strong>
+                <strong>Marcos Martins</strong>
                 <p>
                     {/* Everything inside 'public' is considered public and directly
                     accessible by NextJS. */}
