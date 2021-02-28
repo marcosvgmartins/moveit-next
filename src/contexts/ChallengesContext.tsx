@@ -1,5 +1,7 @@
 import { createContext, ReactNode, useEffect, useState } from 'react';
 import challenges from '../../data/challenges.json';
+import Cookies from 'js-cookie';
+import { LevelUpModal } from '../components/LevelUpModal';
 
 /**
  * The Challenge type, according to the information at challenges.json
@@ -23,6 +25,7 @@ interface ChallengesContextData {
     startNewChallenge: () => void;
     resetChallenge: () => void;
     completeChallenge: () => void;
+    closeLevelUpModal: () => void;
 }
 
 /**
@@ -30,6 +33,9 @@ interface ChallengesContextData {
  */
 interface ChallengesProviderProps {
     children: ReactNode;
+    level: number;
+    currentExperience: number;
+    challengesCompleted: number;
 }
 
 /**
@@ -38,12 +44,19 @@ interface ChallengesProviderProps {
  */
 export const ChallengesContext = createContext({} as ChallengesContextData);
 
-export function ChallengesProvider({ children }: ChallengesProviderProps) {
-    const [level, setLevel] = useState(1);
-    const [currentExperience, setCurrentExperience] = useState(0);
-    const [challengesCompleted, setChallengesCompleted] = useState(0);
-
+export function ChallengesProvider({
+    children,
+    ...reaminingProps
+}: ChallengesProviderProps) {
+    const [level, setLevel] = useState(reaminingProps.level ?? 1);
+    const [currentExperience, setCurrentExperience] = useState(
+        reaminingProps.currentExperience ?? 0
+    );
+    const [challengesCompleted, setChallengesCompleted] = useState(
+        reaminingProps.challengesCompleted ?? 0
+    );
     const [activeChallenge, setActiveChallenge] = useState(null);
+    const [isLevelUpModalOpen, setIsLevelUpModalOpen] = useState(false);
 
     const experienceToNextLevel = Math.pow((level + 1) * 4, 2);
 
@@ -55,8 +68,22 @@ export function ChallengesProvider({ children }: ChallengesProviderProps) {
         Notification.requestPermission();
     }, []);
 
+    /**
+     * Cookies will be used to store information about level and experience.
+     * They'll be used instead of the browser's local storage because we're using
+     * Next.js, therefore we need Next's intermediary back-end (Node) to be able to
+     * access this information to properly render the React components
+     */
+    useEffect(() => {
+        console.log('Setting cookies');
+        Cookies.set('level', String(level));
+        Cookies.set('currentExperience', String(currentExperience));
+        Cookies.set('challengesCompleted', String(challengesCompleted));
+    }, [level, currentExperience, challengesCompleted]);
+
     function levelUp() {
         setLevel(level + 1);
+        setIsLevelUpModalOpen(true);
     }
 
     function startNewChallenge() {
@@ -99,6 +126,10 @@ export function ChallengesProvider({ children }: ChallengesProviderProps) {
         setChallengesCompleted(challengesCompleted + 1);
     }
 
+    function closeLevelUpModal() {
+        setIsLevelUpModalOpen(false);
+    }
+
     return (
         <ChallengesContext.Provider
             value={{
@@ -111,9 +142,12 @@ export function ChallengesProvider({ children }: ChallengesProviderProps) {
                 startNewChallenge,
                 resetChallenge,
                 completeChallenge,
+                closeLevelUpModal,
             }}
         >
             {children}
+
+            {isLevelUpModalOpen && <LevelUpModal />}
         </ChallengesContext.Provider>
     );
 }
