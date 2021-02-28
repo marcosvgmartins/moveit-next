@@ -42,7 +42,7 @@ The application has been deployed to [Vercel](https://vercel.com/new?utm_medium=
 
 ## Future Improvements
 
--   [] :construction: Add user authentication
--   [] :construction: Leaders board
--   [] :construction: Internationalization
--   [] :construction: Social media integration to share accomplishments
+:construction: Add user authentication
+:construction: Leaders board
+:construction: Internationalization
+:construction: Social media integration to share accomplishments
