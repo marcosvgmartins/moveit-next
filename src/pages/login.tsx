@@ -15,6 +15,15 @@ export default function Login() {
                     </span>
                     <span>Faça login com seu GitHub para começar</span>
                 </div>
+                <div className={styles.loginInputContainer}>
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Digite seu usuário"
+                    ></input>
+                    <button type="button">-></button>
+                </div>
             </div>
         </div>
     );
