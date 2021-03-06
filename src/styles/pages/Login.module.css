@@ -70,6 +70,12 @@
         rgba(73, 83, 184, 0.5),
         rgba(73, 83, 184, 0.1)
     );
+
+    transition: background-color 0.2s;
+}
+
+.loginInputContainer input:hover {
+    background-color: rgba(59, 69, 180, 1);
 }
 
 .loginInputContainer input::placeholder {
@@ -91,4 +97,10 @@
     color: var(--white);
 
     background-color: rgba(73, 83, 184);
+
+    transition: filter 0.2s;
+}
+
+.loginInputContainer button:hover {
+    filter: brightness(0.7);
 }
