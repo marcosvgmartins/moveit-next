@@ -2,6 +2,7 @@ import { createContext, ReactNode, useEffect, useState } from 'react';
 import challenges from '../../data/challenges.json';
 import Cookies from 'js-cookie';
 import { LevelUpModal } from '../components/LevelUpModal';
+import { User } from 'next-auth';
 
 /**
  * The Challenge type, according to the information at challenges.json
@@ -21,6 +22,7 @@ interface ChallengesContextData {
     experienceToNextLevel: number;
     challengesCompleted: number;
     activeChallenge: Challenge;
+    user: User;
     levelUp: () => void;
     startNewChallenge: () => void;
     resetChallenge: () => void;
@@ -36,6 +38,7 @@ interface ChallengesProviderProps {
     level: number;
     currentExperience: number;
     challengesCompleted: number;
+    user: User;
 }
 
 /**
@@ -55,6 +58,7 @@ export function ChallengesProvider({
     const [challengesCompleted, setChallengesCompleted] = useState(
         reaminingProps.challengesCompleted ?? 0
     );
+    const [user] = useState(reaminingProps.user ?? null);
     const [activeChallenge, setActiveChallenge] = useState(null);
     const [isLevelUpModalOpen, setIsLevelUpModalOpen] = useState(false);
 
@@ -138,6 +142,7 @@ export function ChallengesProvider({
                 experienceToNextLevel,
                 challengesCompleted,
                 activeChallenge,
+                user,
                 levelUp,
                 startNewChallenge,
                 resetChallenge,

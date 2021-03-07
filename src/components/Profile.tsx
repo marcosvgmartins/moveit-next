@@ -3,15 +3,12 @@ import { ChallengesContext } from '../contexts/ChallengesContext';
 import styles from '../styles/components/Profile.module.css';
 
 export function Profile() {
-    const { level } = useContext(ChallengesContext);
+    const { level, user } = useContext(ChallengesContext);
     return (
         <div className={styles.profileContainer}>
-            <img
-                src="https://github.com/marcosvgmartins.png"
-                alt="Marcos Martins"
-            />
+            <img src={user.image} alt={user.name} />
             <div>
-                <strong>Marcos Martins</strong>
+                <strong>{user.name}</strong>
                 <p>
                     {/* Everything inside 'public' is considered public and directly
                     accessible by NextJS. */}
