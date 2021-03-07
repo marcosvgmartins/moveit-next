@@ -17,7 +17,6 @@ export default function Login({ providers }) {
         ? router.query.callbackUrl[0]
         : router.query.callbackUrl;
 
-    console.log(providers);
     return (
         <div className={styles.loginContainer}>
             <img src="icons/symbol.svg" alt="move.it symbol" />
