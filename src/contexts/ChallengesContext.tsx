@@ -79,7 +79,6 @@ export function ChallengesProvider({
      * access this information to properly render the React components
      */
     useEffect(() => {
-        console.log('Setting cookies');
         Cookies.set('level', String(level));
         Cookies.set('currentExperience', String(currentExperience));
         Cookies.set('challengesCompleted', String(challengesCompleted));

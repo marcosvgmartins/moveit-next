@@ -61,8 +61,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
         };
     }
 
-    console.log(session);
-
     return {
         props: {
             level: Number(level),
