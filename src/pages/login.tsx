@@ -22,7 +22,7 @@ export default function Login() {
                         name="username"
                         placeholder="Digite seu usuário"
                     ></input>
-                    <button type="button">-></button>
+                    <button type="button">-&gt;</button>
                 </div>
             </div>
         </div>
